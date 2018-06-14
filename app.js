@@ -133,21 +133,38 @@ function searchByAge(people) {
   let userInputAge = prompt("What is the person's age?");
   let currentDate = currentDateFinder();
   let datesOfBirth = [];
-  let agesOfPeople = [];
-  console.log(agesOfPeople);
+  let ages = [];
 
   for(let i = 0; i < people.length; i++){
     datesOfBirth.push(getDateOfBirth(people[i]));
   }
 
   for(let i = 0; i < people.length; i++){
-    ages.push(currentDate[2] - datesOfBirth[i][2]);
+    let baseAge = currentDate[2] - datesOfBirth[i][2];
+    let actualAge;
+    if(currentDate[0] < datesOfBirth[i][0]){
+      actualAge = baseAge - 1;
+    }
+    else if(currentDate[0] > datesOfBirth[i][0]){
+      actualAge = baseAge;
+    }
+    else{
+      if(currentDate[1] >= datesOfBirth[i][1]){
+        actualAge = baseAge;
+      }
+      else{
+        actualAge = baseAge - 1;
+      }
+    }
+
+    people[i].age = actualAge;
   }
 
-  let modifiedAges = ages.map(function(el){
-
-
-    return modifiedAges;
+  let newArray = people.filter(function (el) {
+    if(el.age == userInputAge) {
+      return true;
+    }
+    // return true if el.age matches userInputAge
   });
 
   return newArray;
@@ -184,7 +201,7 @@ function getDateOfBirth(person){
   }
   birthYear = currentNumber;
 
-  alert("Month: " + birthMonth + " Date: " + birthDate + " Year: " + birthYear);
+  //alert("Month: " + birthMonth + " Date: " + birthDate + " Year: " + birthYear);
   return [birthMonth, birthDate, birthYear];
 }
 
@@ -195,7 +212,7 @@ function currentDateFinder() {
  let theYear = rightNow.getFullYear();
  let theMonth = rightNow.getMonth();
  let numberOfMonth = monthNumbers[theMonth];
- alert(numberOfMonth +""+theDay +""+theYear);
+ //alert(numberOfMonth +""+theDay +""+theYear);
  return [numberOfMonth, theDay, theYear];
 }
 
