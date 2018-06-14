@@ -18,12 +18,13 @@ function app(people){
       // app(people); // restart app
       break;
   }
-  alert(person);
 }
 
 function searchByTraits(people) {
   let userSearchChoice = prompt("What would you like to search by? 'height', 'weight', 'eye color', 'gender', 'age', 'occupation'.");
   let filteredPeople;
+  let noPersonFound = false;
+  let foundPerson;
 
   switch(userSearchChoice) {
     case "height":
@@ -32,17 +33,48 @@ function searchByTraits(people) {
     case "weight":
       filteredPeople = searchByWeight(people);
       break;
-    // so on and so forth
+    case "eye color":
+      filteredPeople = searchByEyeColor(people);
+      break;
+    case "gender":
+      filteredPeople = searchByGender(people);
+      break;
+    case "age":
+      filteredPeople = searchByAge(people);
+      break;
+    case "occupation":
+      filteredPeople = searchByOccupation(people);
+      break;
     default:
       alert("You entered an invalid search type! Please try again.");
       searchByTraits(people);
       break;
   }
 
-  let foundPerson = filteredPeople[0];
+  if(filteredPeople[0] === undefined){
+    noPersonFound = true;
+  }
+  if(!noPersonFound){
+    foundPerson = filteredPeople[0];
+  }
+
+  alert(foundPerson.firstName + " " + foundPerson.lastName);
 
   mainMenu(foundPerson, people);
 
+}
+
+function searchByHeight(people){
+  let userInputHeight = prompt("What is the person's height (in inches)?");
+
+  let newArray = people.filter(function (el) {
+    if(el.height == userInputHeight) {
+      return true;
+    }
+    // return true if el.height matches userInputHeight
+  });
+
+  return newArray;
 }
 
 function searchByWeight(people) {
@@ -54,6 +86,53 @@ function searchByWeight(people) {
     }
     // return true if el.height matches userInputHeight
   });
+
+  return newArray;
+}
+
+function searchByEyeColor(people){
+  let userInputEyeColor = prompt("What is the person's eye color?");
+
+  let newArray = people.filter(function (el) {
+    if(el.eyeColor == userInputEyeColor) {
+      return true;
+    }
+    // return true if el.eyeColor matches userInputEyeColor
+  });
+
+  return newArray;
+}
+
+function searchByGender(people) {
+  let userInputGender = prompt("What is the person's gender?");
+
+  let newArray = people.filter(function (el) {
+    if(el.gender == userInputGender) {
+      return true;
+    }
+    // return true if el.gender matches userInputGender
+  });
+
+  return newArray;
+}
+
+function searchByOccupation(people) {
+  let userInputOccupation = prompt("What is the person's occupation?");
+
+  let newArray = people.filter(function (el) {
+    if(el.occupation == userInputOccupation) {
+      return true;
+    }
+    // return true if el.occupation matches userInputOccupation
+  });
+
+  return newArray;
+}
+
+function searchByAge(people) {
+  let userInputAge = prompt("What is the person's age?");
+  let currentDate = new Date();
+  
 
   return newArray;
 }
