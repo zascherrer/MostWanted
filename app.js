@@ -4,7 +4,7 @@ Build all of your functions for displaying and gathering information below (GUI)
 
 // app is the function called to start the entire application
 function app(people){
-  let person;
+  let personOne;
   var searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
   switch(searchType){
     case 'yes':
@@ -132,7 +132,7 @@ function searchByOccupation(people) {
 function searchByAge(people) {
   let userInputAge = prompt("What is the person's age?");
   let currentDate = new Date();
-  
+
 
   return newArray;
 }
