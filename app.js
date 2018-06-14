@@ -305,6 +305,14 @@ function displayFamily(person, people){
         }
       }
     }
+
+    if(person.parents[0] !== undefined){
+      //for(let j = 0; j < person.parents.length; j++){
+        if(person.parents[0] === people[i].parents[0] && person.id !== people[i].id){
+          familyList += "Sibling: " + getName(people[i]) + "\n";
+        }
+      //}
+    }
   }
 
   alert(familyList);
