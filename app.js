@@ -4,19 +4,21 @@ Build all of your functions for displaying and gathering information below (GUI)
 
 // app is the function called to start the entire application
 function app(people){
+  let person;
   var searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
   switch(searchType){
     case 'yes':
-    // TODO: search by name
-    break;
+      person = searchByName(people);
+      break;
     case 'no':
-    searchByTraits(people);
-    break;
+      person = searchByTraits(people);
+      break;
     default:
-    alert("Wrong! Please try again, following the instructions dummy. :)");
-    app(people); // restart app
-    break;
+      alert("Please enter either a yes or no.");
+      // app(people); // restart app
+      break;
   }
+  alert(person);
 }
 
 function searchByTraits(people) {
@@ -35,7 +37,7 @@ function searchByTraits(people) {
       alert("You entered an invalid search type! Please try again.");
       searchByTraits(people);
       break;
-  }  
+  }
 
   let foundPerson = filteredPeople[0];
 
@@ -93,7 +95,11 @@ function searchByName(people){
   var lastName = promptFor("What is the person's last name?", chars);
 
   // TODO: find the person using the name they entered
-
+  for (let i = 0; i < people.length; i++) {
+    if (firstName === people[i].firstName && lastName === people[i].lastName){
+      return people[i];
+    }
+  }
 }
 
 // alerts a list of people
