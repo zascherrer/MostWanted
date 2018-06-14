@@ -120,8 +120,13 @@ function displayPerson(person){
 
 // function that prompts and validates user input
 function promptFor(question, valid){
+  let validResponse = true;
   do{
+    if(!validResponse){
+      alert("Please enter a valid response.")
+    }
     var response = prompt(question).trim();
+    validResponse = false;
   } while(!response || !valid(response));
   return response;
 }
