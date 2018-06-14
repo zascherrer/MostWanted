@@ -4,7 +4,7 @@ Build all of your functions for displaying and gathering information below (GUI)
 
 // app is the function called to start the entire application
 function app(people){
-  let personOne;
+  let person;
   var searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
   switch(searchType){
     case 'yes':
@@ -132,9 +132,48 @@ function searchByOccupation(people) {
 function searchByAge(people) {
   let userInputAge = prompt("What is the person's age?");
   let currentDate = new Date();
+  let datesOfBirth = [];
 
+  for(let i = 0; i < people.length; i++){
+    datesOfBirth.push(getDateOfBirth(people[i]));
+  }
 
   return newArray;
+}
+
+function getDateOfBirth(person){
+  let birthMonth;
+  let birthDate;
+  let birthYear;
+  let currentNumber = "";
+  let monthDayOrYear = 0;
+
+  for(let i = 0; i < person.dob.length; i++){
+    if(person.dob.charAt(i) !== "/"){
+      currentNumber += person.dob.charAt(i);
+    }
+    else{
+      switch(monthDayOrYear){
+        case 0:
+          birthMonth = currentNumber;
+          currentNumber = "";
+          break;
+        case 1:
+          birthDate = currentNumber;
+          currentNumber = "";
+          break;
+        default:
+          birthYear = currentNumber;
+          currentNumber = "";
+          break;
+      }
+      monthDayOrYear++;
+    }
+  }
+  birthYear = currentNumber;
+
+  alert("Month: " + birthMonth + " Date: " + birthDate + " Year: " + birthYear);
+  return [birthMonth, birthDate, birthYear];
 }
 
 // Menu function to call once you find who you are looking for
