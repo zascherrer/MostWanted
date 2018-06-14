@@ -134,6 +134,7 @@ function searchByAge(people) {
   let currentDate = currentDateFinder();
   let datesOfBirth = [];
   let agesOfPeople = [];
+  console.log(agesOfPeople);
 
   for(let i = 0; i < people.length; i++){
     datesOfBirth.push(getDateOfBirth(people[i]));
