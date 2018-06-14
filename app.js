@@ -233,7 +233,7 @@ function mainMenu(person, people){
       displayPerson(person);
       break;
     case "family":
-    // TODO: get person's family
+      displayFamily(person, people);
       break;
     case "descendants":
     // TODO: get person's descendants
@@ -279,6 +279,39 @@ function displayPerson(person){
   personInfo += "Date of Birth: " + person.dob + "\n";
   personInfo += "Occupation: " + person.occupation + "\n";
   alert(personInfo);
+}
+
+function displayFamily(person, people){
+  let familyList = "";
+  for(let i = 0; i < people.length; i++){
+    if(person.currentSpouse !== undefined){
+      if(person.currentSpouse === people[i].id){
+        familyList += "Spouse: " + getName(people[i]) + " \n";
+      }
+    }
+
+    if(people[i].parents[0] !== undefined){
+      for(let j = 0; j < 2; j++){
+        if(people[i].parents[j] === person.id){
+          familyList += "Child: " + getName(people[i]) + "\n";
+        }
+      }
+    }
+
+    if(person.parents[0] !== undefined){
+      for(let j = 0; j < 2; j++){
+        if(person.parents[j] === people[i].id){
+          familyList += "Parent: " + getName(people[i]) + "\n";
+        }
+      }
+    }
+  }
+
+  alert(familyList);
+}
+
+function getName(person){
+  return person.firstName + " " + person.lastName;
 }
 
 // function that prompts and validates user input
