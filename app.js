@@ -14,7 +14,7 @@ function app(people){
       person = searchByTraits(people);
       break;
     default:
-      alert("Please enter either a yes or no.");
+      alert("Please enter either a yes or no. THIS IS A TEST LINE");
       // app(people); // restart app
       break;
   }
