@@ -133,7 +133,7 @@ function searchByAge(people) {
   let userInputAge = prompt("What is the person's age?");
   let currentDate = currentDateFinder();
   let datesOfBirth = [];
-  let ages = [];
+  let agesOfPeople = [];
 
   for(let i = 0; i < people.length; i++){
     datesOfBirth.push(getDateOfBirth(people[i]));
@@ -144,7 +144,7 @@ function searchByAge(people) {
   }
 
   let modifiedAges = ages.map(function(el){
-    
+
 
     return modifiedAges;
   });
