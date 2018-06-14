@@ -131,12 +131,23 @@ function searchByOccupation(people) {
 
 function searchByAge(people) {
   let userInputAge = prompt("What is the person's age?");
-  let currentDate = new Date();
+  let currentDate = currentDateFinder();
   let datesOfBirth = [];
+  let ages = [];
 
   for(let i = 0; i < people.length; i++){
     datesOfBirth.push(getDateOfBirth(people[i]));
   }
+
+  for(let i = 0; i < people.length; i++){
+    ages.push(currentDate[2] - datesOfBirth[i][2]);
+  }
+
+  let modifiedAges = ages.map(function(el){
+    
+
+    return modifiedAges;
+  });
 
   return newArray;
 }
@@ -174,6 +185,17 @@ function getDateOfBirth(person){
 
   alert("Month: " + birthMonth + " Date: " + birthDate + " Year: " + birthYear);
   return [birthMonth, birthDate, birthYear];
+}
+
+function currentDateFinder() {
+ let monthNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+ let rightNow = new Date();
+ let theDay = rightNow.getDate();
+ let theYear = rightNow.getFullYear();
+ let theMonth = rightNow.getMonth();
+ let numberOfMonth = monthNumbers[theMonth];
+ alert(numberOfMonth +""+theDay +""+theYear);
+ return [numberOfMonth, theDay, theYear];
 }
 
 // Menu function to call once you find who you are looking for
