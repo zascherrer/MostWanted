@@ -14,7 +14,7 @@ function app(people){
       person = searchByTraits(people);
       break;
     default:
-      alert("Please enter either a yes or no. THIS IS A TEST LINE");
+      alert("Please enter either a yes or no.");
       // app(people); // restart app
       break;
   }
@@ -253,10 +253,20 @@ function searchByName(people){
   var lastName = promptFor("What is the person's last name?", chars);
 
   // TODO: find the person using the name they entered
+  let noPersonFound = false;
+  let foundPerson;
   for (let i = 0; i < people.length; i++) {
     if (firstName === people[i].firstName && lastName === people[i].lastName){
-      return people[i];
+       foundPerson = people[i];
+      if(personFoundCheck(foundPerson)){
+        alert(foundPerson.firstName + " " + foundPerson.lastName);
+        mainMenu(foundPerson, people);
+      }
+      return foundPerson;
     }
+  }
+  if (!personFoundCheck(foundPerson)) {
+    app(people);
   }
 }
 
@@ -333,6 +343,17 @@ function promptFor(question, valid){
     validResponse = false;
   } while(!response || !valid(response));
   return response;
+}
+
+function personFoundCheck(person) {
+  if(person === undefined) {
+    alert("Person not found.");
+    return false;
+  }
+  else {
+    return true;
+  }
+
 }
 
 // helper function to pass into promptFor to validate yes/no answers
