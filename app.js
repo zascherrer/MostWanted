@@ -310,7 +310,7 @@ function mainMenu(person, people){
       displayFamily(person, people);
       break;
     case "descendants":
-    // TODO: get person's descendants
+      displayDescendants(person, people, 2, person);
       break;
     case "restart":
       app(people); // restart
@@ -403,6 +403,47 @@ function displayFamily(person, people){
   alert(familyList);
 
   mainMenu(person, people);
+}
+
+function displayDescendants(person, people, counter, originalPerson){
+  let children = [];
+  let familyList = "";
+
+  for(let i = 0; i < people.length; i++){
+    if(people[i].parents[0] !== undefined){
+      for(let j = 0; j < 2; j++){
+        if(people[i].parents[j] === person.id){
+          familyList += getName(people[i]) + "\n";
+          children.push(people[i]);
+        }
+      }
+    }
+  }
+
+  if(counter === 2){
+    alert("Children: " + familyList)
+  }
+  else if(counter === 1 && familyList !== ""){
+    alert("Grandchildren: " + familyList)
+    mainMenu(originalPerson, people);
+  }
+  else if(counter === 0 && familyList !== ""){
+    alert("Great-grandchildren: " + familyList)
+
+  }
+
+  if(counter > 0){
+    counter--;
+    for(let i = 0; i < children.length; i++){
+      displayDescendants(children[i], people, counter, originalPerson);
+    }
+    if(children.length === 0){
+      alert("No descendants found.")
+      mainMenu(originalPerson,people);
+    }
+  }
+
+
 }
 
 function getName(person){
