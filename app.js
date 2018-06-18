@@ -20,7 +20,7 @@ function app(people){
 }
 
 function searchByTraits(people) {
-  let userSearchChoice = prompt("What would you like to search by? 'height', 'weight', 'eye color', 'gender', 'age', 'occupation'.");
+  let userSearchChoice = promptFor("What would you like to search by? 'height', 'weight', 'eye color', 'gender', 'age', 'occupation'.", chars).toLowerCase();
   let filteredPeople;
   let noPersonFound = false;
   let foundPerson;
@@ -65,7 +65,7 @@ function searchByTraits(people) {
   alert(listOfPeople);
 
   if(foundPeople.length > 1){
-    foundPerson = filterSearch(foundPeople, listOfPeople);
+    foundPerson = nameOrTraits(foundPeople, listOfPeople);
   }
   else{
     foundPerson = foundPeople[0];
@@ -74,19 +74,29 @@ function searchByTraits(people) {
 
 }
 
+function nameOrTraits(people, listOfPeople){
+  let userChoice = promptFor(listOfPeople + "\n\nWe found the people above. Would you like to search them by name or traits?", strings);
+  if(userChoice == "name"){
+    return filterSearch(people, listOfPeople);
+  }
+  else{
+    return searchByTraits(people);
+  }
+}
+
 function filterSearch(people, listOfPeople){
-  var firstName = promptFor(listOfPeople + "\n\nWe found the people above. What is your selected person's first name?", chars);
-  var lastName = promptFor(listOfPeople + "\n\nWhat is your selected person's last name?", chars);
+  var firstName = promptFor(listOfPeople + "\n\nWe found the people above. What is your selected person's first name?", chars).toLowerCase();
+  var lastName = promptFor(listOfPeople + "\n\nWhat is your selected person's last name?", chars).toLowerCase();
 
   // TODO: find the person using the name they entered
   let noPersonFound = false;
   let foundPerson;
   for (let i = 0; i < people.length; i++) {
-    if (firstName === people[i].firstName && lastName === people[i].lastName){
+    if (firstName === people[i].firstName.toLowerCase() && lastName === people[i].lastName.toLowerCase()){
        foundPerson = people[i];
       if(personFoundCheck(foundPerson)){
         alert(foundPerson.firstName + " " + foundPerson.lastName);
-        mainMenu(foundPerson, people);
+        return foundPerson;
       }
       return foundPerson;
     }
@@ -303,7 +313,7 @@ function mainMenu(person, people){
 
   switch(displayOption){
     case "info":
-      displayPerson(person);
+      displayPerson(person, people);
       break;
     case "family":
       displayFamily(person, people);
@@ -323,14 +333,14 @@ function mainMenu(person, people){
 }
 
 function searchByName(people){
-  var firstName = promptFor("What is the person's first name?", chars);
-  var lastName = promptFor("What is the person's last name?", chars);
+  var firstName = promptFor("What is the person's first name?", chars).toLowerCase();
+  var lastName = promptFor("What is the person's last name?", chars).toLowerCase();
 
   // TODO: find the person using the name they entered
   let noPersonFound = false;
   let foundPerson;
   for (let i = 0; i < people.length; i++) {
-    if (firstName === people[i].firstName && lastName === people[i].lastName){
+    if (firstName === people[i].firstName.toLowerCase() && lastName === people[i].lastName.toLowerCase()){
        foundPerson = people[i];
       if(personFoundCheck(foundPerson)){
         alert(foundPerson.firstName + " " + foundPerson.lastName);
@@ -351,7 +361,7 @@ function displayPeople(people){
   }).join("\n"));
 }
 
-function displayPerson(person){
+function displayPerson(person, people){
   // print all of the information about a person:
   // height, weight, age, name, occupation, eye color.
   let personInfo = "First Name: " + person.firstName + "\n";
@@ -363,6 +373,7 @@ function displayPerson(person){
   personInfo += "Date of Birth: " + person.dob + "\n";
   personInfo += "Occupation: " + person.occupation + "\n";
   alert(personInfo);
+  mainMenu(person, people)
 }
 
 function displayFamily(person, people){
@@ -437,7 +448,7 @@ function displayDescendants(person, people, counter, originalPerson){
       displayDescendants(children[i], people, counter, originalPerson);
     }
     if(children.length === 0){
-      alert("No descendants found.")
+      alert("No further descendants found.")
       mainMenu(originalPerson,people);
     }
   }
