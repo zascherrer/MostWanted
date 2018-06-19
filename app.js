@@ -1,6 +1,4 @@
-/*
-Build all of your functions for displaying and gathering information below (GUI).
-*/
+
 // app is the function called to start the entire application
 function app(people){
   let personONE;
@@ -336,7 +334,7 @@ function searchByName(people){
   var firstName = promptFor("What is the person's first name?", chars).toLowerCase();
   var lastName = promptFor("What is the person's last name?", chars).toLowerCase();
 
-  // TODO: find the person using the name they entered
+ 
   let noPersonFound = false;
   let foundPerson;
   for (let i = 0; i < people.length; i++) {
